@@ -1,12 +1,17 @@
 * npx sequelize-cli model:generate --name ReviewImage --attributes reviewId:INTEGER,url:STRING
+* npx sequelize seed:generate --name reviewImageData
 
 * npx sequelize-cli model:generate --name Booking --attributes spotId:INTEGER,userId:INTEGER,startDate:DATE,endDate:DATE
+* npx sequelize seed:generate --name bookingData
 
 * npx sequelize-cli model:generate --name Review --attributes spotId:INTEGER,userId:INTEGER,review:STRING,stars:INTEGER
+* npx sequelize seed:generate --name reviewData
 
 * npx sequelize-cli model:generate --name Spot --attributes ownerId:INTEGER,address:STRING,city:STRING,state:STRING,country:STRING,lat:DECIMAL,lng:DECIMAL,name:STRING,description:STRING,price:DECIMAL
+* npx sequelize seed:generate --name spotData
 
 * npx sequelize-cli model:generate --name SpotImage --attributes spotId:INTEGER,url:STRING,preview:BOOLEAN
+npx sequelize seed:generate --name spotImageData
 
 
 integer
