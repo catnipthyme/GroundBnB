@@ -13,27 +13,27 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await ReviewImage.bulkCreate([
       {
-        reviewId: '',
+        reviewId: 1,
         url: ''
       },
       {
-        reviewId: '',
+        reviewId: 2,
         url: ''
       },
       {
-        reviewId: '',
+        reviewId: 2,
         url: ''
       },
       {
-        reviewId: '',
+        reviewId: 3,
         url: ''
       },
       {
-        reviewId: '',
+        reviewId: 4,
         url: ''
       },
       {
-        reviewId: '',
+        reviewId: 3,
         url: ''
       },
     ], { validate: true });
