@@ -14,32 +14,32 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: '',
+        url: 'https://picsum.photos/207',
         preview: true
       },
       {
         spotId: 2,
-        url: '',
-        preview: '',
+        url: 'https://picsum.photos/208',
+        preview: true,
       },
       {
         spotId: 3,
-        url: '',
-        preview: '',
+        url: 'https://picsum.photos/209',
+        preview: true,
       },
       {
         spotId: 3,
-        url: '',
-        preview: '',
+        url: 'https://picsum.photos/210',
+        preview: true,
       },
-    ], { validate: true });
+    ], options, { validate: true });
   },
 
   async down (queryInterface, Sequelize) {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['DemoUser1', 'DemoUser2', 'DemoUser3'] }
+      url: { [Op.in]: ['https://picsum.photos/207', 'https://picsum.photos/208', 'https://picsum.photos/209', 'https://picsum.photos/210'] }
     }, {});
   }
 };

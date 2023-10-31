@@ -14,36 +14,36 @@ module.exports = {
     await ReviewImage.bulkCreate([
       {
         reviewId: 1,
-        url: ''
+        url: 'https://picsum.photos/201'
       },
       {
         reviewId: 2,
-        url: ''
+        url: 'https://picsum.photos/202'
       },
       {
         reviewId: 2,
-        url: ''
+        url: 'https://picsum.photos/203'
       },
       {
         reviewId: 3,
-        url: ''
+        url: 'https://picsum.photos/204'
       },
       {
         reviewId: 4,
-        url: ''
+        url: 'https://picsum.photos/205'
       },
       {
         reviewId: 3,
-        url: ''
+        url: 'https://picsum.photos/206'
       },
-    ], { validate: true });
+    ], options, { validate: true });
   },
 
   async down (queryInterface, Sequelize) {
     options.tableName = 'ReviewImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['DemoUser1', 'DemoUser2', 'DemoUser3'] }
+      url: { [Op.in]: [ 'https://picsum.photos/206', 'https://picsum.photos/205', 'https://picsum.photos/204', 'https://picsum.photos/203', 'https://picsum.photos/202', 'https://picsum.photos/201', 'https://picsum.photos/200'] }
     }, {});
   }
 };

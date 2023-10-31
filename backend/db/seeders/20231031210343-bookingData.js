@@ -15,35 +15,35 @@ module.exports = {
       {
         spotId: 3,
         userId: 1,
-        startDate: '',
-        endDate: ''
+        startDate: '2023-11-14',
+        endDate: '2023-11-23'
       },
       {
         spotId: 1,
         userId: 2,
-        startDate: '',
-        endDate: ''
+        startDate: '2023-12-05',
+        endDate: '2023-12-12'
       },
       {
         spotId: 2,
         userId: 2,
-        startDate: '',
-        endDate: ''
+        startDate: '2023-12-13',
+        endDate: '2023-12-20'
       },
       {
         spotId: 3,
         userId: 3,
-        startDate: '',
-        endDate: ''
+        startDate: '2023-12-01',
+        endDate: '2023-12-03'
       },
-    ], { validate: true });
+    ], options, { validate: true });
   },
 
   async down (queryInterface, Sequelize) {
     options.tableName = 'Bookings';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['DemoUser1', 'DemoUser2', 'DemoUser3'] }
+      spotId: { [Op.in]: [1, 2, 3] }
     }, {});
   }
 };

@@ -25,7 +25,7 @@ module.exports = {
         price: 20.00
       },
       {
-        ownerId: 1,
+        ownerId: 2,
         address: '1 Cold Lane Unit 3',
         city: 'A Random Glacier',
         state: 'Nunavut',
@@ -37,7 +37,7 @@ module.exports = {
         price: 75.00
       },
       {
-        ownerId: 2,
+        ownerId: 1,
         address: '4832 NW Thisisaroad Drive Apartment 3',
         city: 'Spokane',
         state: 'Washington',
@@ -48,14 +48,14 @@ module.exports = {
         description: 'Just a basement with all the basic ammenities and only a little bit of mold',
         price: 60.00
       },
-    ], { validate: true });
+    ], options, { validate: true });
   },
 
   async down (queryInterface, Sequelize) {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['DemoUser1', 'DemoUser2', 'DemoUser3'] }
+      name: { [Op.in]: ['Decorated Basement', 'Icy Abode', 'Mole Hill'] }
     }, {});
   }
 };
