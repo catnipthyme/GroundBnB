@@ -8,22 +8,29 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
         email: 'demo1@user.io',
         username: 'DemoUser1',
+        firstName: 'Demoichi',
+        lastName: 'Userichi',
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
         email: 'demo2@user.io',
         username: 'DemoUser2',
+        firstName: 'Demoni',
+        lastName: 'Userni',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
         email: 'demo3@user.io',
         username: 'DemoUser3',
+        firstName: 'Demosan',
+        lastName: 'Usersan',
         hashedPassword: bcrypt.hashSync('password3')
       }
     ], { validate: true });
