@@ -1,3 +1,23 @@
+* npx sequelize-cli model:generate --name ReviewImage --attributes reviewId:INTEGER,url:STRING
+
+npx sequelize-cli model:generate --name Booking --attributes spotId:INTEGER,userId:INTEGER,startDate:DATE,endDate:DATE
+
+npx sequelize-cli model:generate --name Review --attributes spotId:INTEGER,userId:INTEGER,review:STRING,stars:INTEGER
+
+npx sequelize-cli model:generate --name Spot --attributes ownerId:INTEGER,address:STRING,city:STRING,state:STRING,country:STRING,lat:DECIMAL,lng:DECIMAL,name:STRING,description:STRING,price:DECIMAL
+
+npx sequelize-cli model:generate --name SpotImage --attributes spotId:INTEGER,url:STRING,preview:BOOLEAN
+
+
+integer
+string
+boolean
+date
+float: approximate decimal number
+decimal: exact decimal number
+
+
+
 # GroundBnB
 - Include disclaimer on main page:
   + No refunds given for not being able to fit in your chosen subterranean abode. DOUBLE CHECK DESCRIPTION BEFORE BOOKING.
