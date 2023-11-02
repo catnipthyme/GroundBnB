@@ -50,7 +50,7 @@ router.get("/", async(req, res) => {
         spot.avgRating = 'No reviews available'
       }
       spot.avgRating = totalStars / reviewCount
-
+      delete spot.Reviews
   })
 
   res.json({spotList});
