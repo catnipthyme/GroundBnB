@@ -15,7 +15,7 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-router.post('/', validateLogin, async (req, res, next) => {                       // login user
+router.post('/', validateLogin, async (req, res, next) => {                      // login user
   const {credential, password} = req.body;
   const user = await User.unscoped().findOne({
     where: {
