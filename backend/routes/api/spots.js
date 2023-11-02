@@ -43,14 +43,19 @@ router.get("/", async (req, res) => {
     reviews.forEach((review) => {
       totalStars += review.stars;
     });
-    if (!review.length) {
+
+    spot.avgRating = totalStars / reviewCount;
+
+    if (!reviews.length) {
       spot.avgRating = "No reviews available";
     }
-    spot.avgRating = totalStars / reviewCount;
+
     delete spot.Reviews;
   });
 
-  res.json({ spotList });
+  let Spots = spotList;
+
+  res.json({ Spots });
 });
 
 // Get all Spots owned by the Current User
@@ -99,10 +104,11 @@ router.get("/current", requireAuth, async (req, res) => {
     reviews.forEach((review) => {
       totalStars += review.stars;
     });
-    if (!review.length) {
+
+    spot.avgRating = totalStars / reviewCount;
+    if (reviews.length === 0) {
       spot.avgRating = "No reviews available";
     }
-    spot.avgRating = totalStars / reviewCount;
     delete spot.Reviews;
   });
 
@@ -118,7 +124,7 @@ router.get("/:spotId", async (req, res) => {
   const spot = await Spot.findByPk(req.params.spotId, {
     include: [
       { model: SpotImage, attributes: ["id", "url", "preview"] },
-      { model: User, attributes: ["id", "firstName", "lastName"] },
+      { model: User, as: "Owner", attributes: ["id", "firstName", "lastName"] },
       { model: Review },
     ],
   });
@@ -137,25 +143,40 @@ router.get("/:spotId", async (req, res) => {
   reviews.forEach((review) => {
     totalStars += review.stars;
   });
-  if (!review.length) {
-    (selectedSpot.avgRating = "No reviews available"),
-      (selectedSpot.numReviews = "No reviews available");
-    delete selectedSpot.Reviews;
-  } else {
-    selectedSpot.avgRating = totalStars / numReviews;
-    selectedSpot.numReviews = numReviews;
-    delete selectedSpot.Reviews;
+  selectedSpot.avgRating = totalStars / numReviews;
+  selectedSpot.numReviews = numReviews;
+  if (reviews.length === 0) {
+    selectedSpot.avgRating = "No reviews available";
+    selectedSpot.numReviews = "No reviews available";
   }
-
-  selectedSpot.Owner = {
-    id: 2,
-    firstName: "Demoni",
-    lastName: "Userni",
-  };
+  delete selectedSpot.Reviews;
 
   delete selectedSpot.User;
 
   res.json(selectedSpot);
+});
+
+// Create a Spot
+router.post("/", requireAuth, async (req, res) => {
+  const {user} = req
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+  const newSpot = await Spot.create({
+    ownerId: user.id,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+
+  res.status(201).json(newSpot);
+
+
 });
 
 module.exports = router;

@@ -48,6 +48,18 @@ module.exports = {
         description: 'Just a basement with all the basic ammenities and only a little bit of mold',
         price: 60.00
       },
+      {
+        ownerId: 1,
+        address: '4832 NW Thisisaroad Drive Apartment 4',
+        city: 'Spokane',
+        state: 'Washington',
+        country: 'USA',
+        lat: 47.703,
+        lng: -117.384,
+        name: 'Probably Not A Trap',
+        description: 'No, there really is a lovely cask of Amanontillado in that closet, I swear...',
+        price: 5.00
+      },
     ], options, { validate: true });
   },
 
@@ -55,7 +67,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Decorated Basement', 'Icy Abode', 'Mole Hill'] }
+      name: { [Op.in]: ['Decorated Basement', 'Icy Abode', 'Mole Hill', 'No, there really is a lovely cask of Amanontillado in that closet, I swear...'] }
     }, {});
   }
 };
