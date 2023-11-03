@@ -62,14 +62,6 @@ router.get("/", async (req, res) => {
 router.get("/current", requireAuth, async (req, res) => {
   const { user } = req;
 
-  if (!user) {
-    const err = new Error("Authentication required");
-    err.title = "Authentication required";
-    err.errors = { message: "Authentication required" };
-    err.status = 401;
-    res.status(401).json(err);
-  }
-
   const userSpots = await Spot.findAll({
     where: { ownerId: user.id },
     include: [
@@ -193,5 +185,36 @@ router.post("/", requireAuth, validateSpot, async(req, res) => {
 
 
 });
+
+// Add an Image to a Spot based on the Spot's id
+router.post("/:spotId/images", requireAuth, async(req, res) => {
+  const {user} = req
+  const { url, preview } = req.body
+
+  const spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    const err = new Error("Spot couldn't be found.");
+    res.status(404).json({
+      message: err.message,
+    });
+  }
+
+  if (spot.ownerId !== user.id) {
+    const err = new Error("Forbidden");
+    res.status(403).json({
+      message:err.message
+    });
+  }
+
+  const newImage = await SpotImage.create({
+    spotId: spot.id,
+    url,
+    preview
+  });
+
+  res.status(200).json(newImage)
+
+})
+
 
 module.exports = router;
