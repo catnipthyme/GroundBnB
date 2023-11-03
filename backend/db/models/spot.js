@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Spot.belongsTo(models.User, {
+        as: "Owner",
         foreignKey: 'ownerId'
       })
       Spot.hasMany(models.Review, {
@@ -32,30 +33,31 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
       validate: {
-        isAlphanumeric: true
+        notEmpty: true
       }
     },
     city: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true
+        len: [1, 30]
       }
     },
     state: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true
+        len: [1, 30]
       }
     },
     country: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true
+        len: [1, 50]
       }
     },
     lat: {
@@ -77,8 +79,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        len: [1, 50],
-        isAlphanumeric: true
+        len: [1, 50]
       }
     },
     description: {
