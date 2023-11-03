@@ -74,7 +74,6 @@ router.get("/current", requireAuth, async (req, res) => {
     ],
   });
 
-
   let spotList = [];
   userSpots.forEach((spot) => {
     spotList.push(spot.toJSON());
@@ -106,15 +105,15 @@ router.get("/current", requireAuth, async (req, res) => {
   });
 
   if (spotList.length > 0) {
-    const currentUserSpots = {}
-    currentUserSpots.Spots = spotList
+    const currentUserSpots = {};
+    currentUserSpots.Spots = spotList;
 
-    res.json(currentUserSpots)
+    res.json(currentUserSpots);
   } else {
-    const errors = {}
-    errors.message = "Authentication required"
-  res.status(401).json(errors)
-}
+    const errors = {};
+    errors.message = "Authentication required";
+    res.status(401).json(errors);
+  }
 });
 
 // Get details of a Spot from an id
@@ -229,10 +228,10 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     preview,
   });
 
-
   res.status(200).json(newImage);
 });
 
+//Edit a spot
 router.put("/:spotId", requireAuth, async (req, res) => {
   const { user } = req;
   const { address, city, state, country, lat, lng, name, description, price } =
@@ -257,62 +256,87 @@ router.put("/:spotId", requireAuth, async (req, res) => {
 
   console.log(req.body);
   if (address.length < 1) {
-    errors.address = "Street address is required"
+    errors.address = "Street address is required";
   } else {
     spotToChange.address = address;
   }
   if (city.length < 1) {
-    errors.city = "City is required"
+    errors.city = "City is required";
   } else {
     spotToChange.city = city;
   }
   if (state.length < 1) {
-    errors.state = "State is required"
+    errors.state = "State is required";
   } else {
     spotToChange.state = state;
   }
   if (country.length < 1) {
-    errors.country = "Country is required"
+    errors.country = "Country is required";
   } else {
     spotToChange.country = country;
   }
   if (lat > 90 || lat < -90 || typeof lat !== "number") {
-    errors.lat = "Latitude is not valid"
+    errors.lat = "Latitude is not valid";
   } else {
-    spotToChange.lat = lat
+    spotToChange.lat = lat;
   }
-if (lng > 180 || lng < -180 || typeof lng !== "number") {
-      errors.lng = "Longitude is not valid"
-    } else {
+  if (lng > 180 || lng < -180 || typeof lng !== "number") {
+    errors.lng = "Longitude is not valid";
+  } else {
     spotToChange.lng = lng;
   }
-    if (name.length > 50 || name.length < 1) {
-      errors.name = "Name must be less than 50 characters"
-    } else {
+  if (name.length > 50 || name.length < 1) {
+    errors.name = "Name must be less than 50 characters";
+  } else {
     spotToChange.name = name;
   }
-    if (description.length < 1) {
-      errors.description = "Description is required"
-    } else {
+  if (description.length < 1) {
+    errors.description = "Description is required";
+  } else {
     spotToChange.description = description;
   }
-    if (price < 1 || typeof price !== "number") {
-      errors.price = "Price per day is required"
-    } else {
+  if (price < 1 || typeof price !== "number") {
+    errors.price = "Price per day is required";
+  } else {
     spotToChange.price = price;
   }
 
   if (Object.keys(errors).length !== 0) {
     const allErrors = {
-      "message": "Bad Request",
-      "errors": errors
-    }
+      message: "Bad Request",
+      errors: errors,
+    };
     res.status(400).json(allErrors);
   } else {
     // console.log(errors)
     await spotToChange.save();
     res.status(200).json(spotToChange);
   }
+});
+
+//Delete a spot
+router.delete("/:spotId", requireAuth, async (req, res) => {
+  const { user } = req;
+
+  const spotToDelete = await Spot.findByPk(req.params.spotId);
+
+  if (!spotToDelete) {
+    const err = new Error("Spot couldn't be found.");
+    return res.status(404).json({ message: err.message });
+  }
+
+  if (spotToDelete.ownerId !== user.id) {
+    const err = new Error("Forbidden");
+    return res.status(403).json({
+      message: err.message,
+    });
+  }
+
+  await spotToDelete.destroy();
+  res.status(200).json({
+    message: "Successfully deleted",
+  })
+
 });
 
 module.exports = router;
