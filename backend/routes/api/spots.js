@@ -74,6 +74,7 @@ router.get("/current", requireAuth, async (req, res) => {
     ],
   });
 
+
   let spotList = [];
   userSpots.forEach((spot) => {
     spotList.push(spot.toJSON());
@@ -104,11 +105,16 @@ router.get("/current", requireAuth, async (req, res) => {
     delete spot.Reviews;
   });
 
-  if (spotList.length === 0) {
-    res.json("Current user has no spots.");
-  }
+  if (spotList.length > 0) {
+    const currentUserSpots = {}
+    currentUserSpots.Spots = spotList
 
-  res.json(spotList);
+    res.json(currentUserSpots)
+  } else {
+    const errors = {}
+    errors.message = "Authentication required"
+  res.status(401).json(errors)
+}
 });
 
 // Get details of a Spot from an id
@@ -122,7 +128,7 @@ router.get("/:spotId", async (req, res) => {
   });
 
   if (!spot) {
-    const err = new Error("Spot couldn't be found.");
+    const err = new Error("Spot couldn't be found");
     res.status(404).json({
       message: err.message,
     });
@@ -222,6 +228,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     url,
     preview,
   });
+
 
   res.status(200).json(newImage);
 });
