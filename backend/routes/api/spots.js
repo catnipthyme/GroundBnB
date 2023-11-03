@@ -153,40 +153,78 @@ router.get("/:spotId", async (req, res) => {
   res.json(selectedSpot);
 });
 
-const validateSpot = [
-  check("address")
-    .exists({ checkFalsy: true })
-    .withMessage("Street address is required"),
-  check("city").exists({ checkFalsy: true }).withMessage("City is required"),
-  check("state").exists({ checkFalsy: true }).withMessage("State is required"),
-  check("country")
-    .exists({ checkFalsy: true })
-    .withMessage("Country is required"),
-  check("lat")
-    .exists({ checkFalsy: true })
-    .withMessage("Latitude is not valid"),
-  check("lng")
-    .exists({ checkFalsy: true })
-    .withMessage("Longitude is not valid"),
-  check("name")
-    .exists({ checkFalsy: true })
-    .withMessage("Name must be less than 50 characters"),
-  check("description")
-    .exists({ checkFalsy: true })
-    .withMessage("Description is required"),
-  check("price")
-    .exists({ checkFalsy: true })
-    .withMessage("Price per day is required"),
-  handleValidationErrors,
-];
+// const validateSpot = [
+//   check("address")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Street address is required"),
+//   check("city").exists({ checkFalsy: true }).withMessage("City is required"),
+//   check("state").exists({ checkFalsy: true }).withMessage("State is required"),
+//   check("country")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Country is required"),
+//   check("lat")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Latitude is not valid"),
+//   check("lng")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Longitude is not valid"),
+//   check("name")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Name must be less than 50 characters"),
+//   check("description")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Description is required"),
+//   check("price")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Price per day is required"),
+//   handleValidationErrors,
+// ];
 
 // Create a Spot
-router.post("/", requireAuth, validateSpot, async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   const { user } = req;
   const { address, city, state, country, lat, lng, name, description, price } =
     req.body;
 
-  const newSpot = await Spot.create({
+
+  let errors = {};
+
+  console.log(req.body);
+  if (address.length < 1) {
+    errors.address = "Street address is required";
+  }
+  if (city.length < 1) {
+    errors.city = "City is required";
+  }
+  if (state.length < 1) {
+    errors.state = "State is required";
+  }
+  if (country.length < 1) {
+    errors.country = "Country is required";
+  }
+  if (lat > 90 || lat < -90 || typeof lat !== "number") {
+    errors.lat = "Latitude is not valid";
+  }
+  if (lng > 180 || lng < -180 || typeof lng !== "number") {
+    errors.lng = "Longitude is not valid";
+  }
+  if (name.length > 50 || name.length < 1) {
+    errors.name = "Name must be less than 50 characters";
+  }
+  if (description.length < 1) {
+    errors.description = "Description is required";
+  }
+  if (price < 1 || typeof price !== "number") {
+    errors.price = "Price per day is required";
+  }
+
+  if (Object.keys(errors).length !== 0) {
+    const allErrors = {
+      message: "Bad Request",
+      errors: errors,
+    };
+    res.status(400).json(allErrors);
+  } else {const newSpot = await Spot.create({
     ownerId: user.id,
     address,
     city,
@@ -199,7 +237,8 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     price,
   });
 
-  res.status(201).json(newSpot);
+  res.status(201).json(newSpot)
+  }
 });
 
 // Add an Image to a Spot based on the Spot's id
@@ -254,7 +293,6 @@ router.put("/:spotId", requireAuth, async (req, res) => {
 
   let errors = {};
 
-  console.log(req.body);
   if (address.length < 1) {
     errors.address = "Street address is required";
   } else {
