@@ -30,7 +30,7 @@ module.exports = {
       {
         spotId: 3,
         url: 'https://picsum.photos/210',
-        preview: true,
+        preview: false,
       },
     ], options, { validate: true });
   },
