@@ -65,7 +65,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isDecimal: true,
-        isAlpha: false,
         notEmpty: true
       }
     },
@@ -74,7 +73,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isDecimal: true,
-        isAlpha: false,
         notEmpty: true
       }
     },
