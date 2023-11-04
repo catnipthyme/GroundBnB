@@ -222,11 +222,11 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
 
   const spot = await Spot.findByPk(req.params.spotId);
   if (!spot) {
-    const err = new Error("Spot couldn't be found.");
+    const err = new Error("Spot couldn't be found");
     res.status(404).json({
       message: err.message,
     });
-  }
+  } else {
 
   if (spot.ownerId !== user.id) {
     const err = new Error("Forbidden");
@@ -242,6 +242,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   });
 
   res.status(200).json(newImage);
+}
 });
 
 
@@ -376,7 +377,53 @@ router.get("/:spotId/reviews", async(req, res) => {
     res.json(spotIdReviews)
   }
 }
+})
 
+//Create a Review for a Spot based on the Spot's id
+router.post("/:spotId/reviews", requireAuth, async(req, res) => {
+  const {user} = req;
+  const {review, stars} = req.body;
+
+  const spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    const err = new Error("Spot couldn't be found");
+    res.status(404).json({message: err.message});
+  } else {
+
+    const oldReviews = await Review.findAll({
+      where: {userId: user.id}
+    })
+
+    if (oldReviews.length > 0) {
+      const err = new Error("User already has a review for this spot");
+      return res.status(500).json({message: err.message})
+    }
+
+    let errors = {};
+
+    if (review.length < 1) {
+      errors.review = "Review text is required";
+    }
+    if (typeof stars !== "number" || stars > 5 || stars < 1) {
+      errors.stars = "Stars must be an integer from 1 to 5"
+    }
+
+    if (Object.keys(errors).length !== 0) {
+      const allErrors = {
+        message: "Bad Request",
+        errors: errors
+      }
+      res.status(400).json(allErrors)
+    } else {
+      const newReview = await Review.create({
+        spotId: req.params.spotId,
+        userId: user.id,
+        review,
+        stars
+      })
+    res.status(201).json(newReview)
+    }
+  }
 })
 
 module.exports = router;
