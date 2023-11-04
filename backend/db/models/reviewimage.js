@@ -35,3 +35,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   return ReviewImage;
 };
+
+defaultScope: {
+  attributes: {
+    exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+  }
+}
