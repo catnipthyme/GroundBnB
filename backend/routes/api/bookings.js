@@ -39,7 +39,26 @@ router.get("/current", requireAuth, async(req, res) => {
   currentUserBookings.Bookings = userBookings;
   res.json(currentUserBookings)
 
+})
 
+//Delete a Booking
+router.delete("/:bookingId", requireAuth, async(req, res) => {
+  const {user} = req;
+
+  const bookingToDelete = await Booking.findByPk(req.params.bookingId);
+
+  if (!bookingToDelete) {
+    const err = new Error("Booking couldn't be found");
+    return res.status(404).json({message: err.message})
+  }
+
+  if (bookingToDelete.userId !== user.id) {
+    const err = new Error("Forbidden");
+    return res.status(403).json({message: err.message})
+  }
+
+  await bookingToDelete.destroy();
+  res.status(200).json({message: "Successfully deleted"})
 })
 
 
