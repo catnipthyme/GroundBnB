@@ -141,6 +141,8 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
     const err = new Error("endDate cannot be on or before startDate");
     return res.status(400).json({ message: err.message });
   }
+  bookingToChange.startDate = startDate;
+  bookingToChange.endDate = endDate
 
   await bookingToChange.save();
 
