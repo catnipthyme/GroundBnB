@@ -12,8 +12,6 @@ const router = express.Router();
 router.get("/current", requireAuth, async(req, res) => {
   const {user} = req;
 
-
-
   const userBookings = await Booking.findAll({
     where: {userId: user.id},
     include: [
@@ -57,8 +55,58 @@ router.delete("/:bookingId", requireAuth, async(req, res) => {
     return res.status(403).json({message: err.message})
   }
 
+const start = new Date(bookingToDelete.startDate)
+const currently = new Date()
+
+const startCheck = start.getTime()
+const currentCheck = currently.getTime()
+
+if (currentCheck >= startCheck) {
+  const err = new Error("Bookings that have been started can't be deleted");
+  return res.status(403).json({message: err.message})
+}
+
   await bookingToDelete.destroy();
   res.status(200).json({message: "Successfully deleted"})
+})
+
+//Edit a Booking
+router.put("/:bookingId", requireAuth, async(req, res) => {
+  const {user} = req;
+  const {startDate, endDate} = req.body;
+
+  const bookingToChange = await Booking.findByPk(req.params.bookingId);
+  if (!bookingToChange) {
+    const err = new Error("Booking couldn't be found");
+    return res.status(404).json({message: err.message})
+  }
+
+  if (bookingToChange.userId !== user.id) {
+    const err = new Error("Forbidden")
+    return res.status(403).json({
+      message: err.message,
+    });
+  }
+
+  const start = new Date(startDate)
+  const end = new Date(endDate)
+  const current = new Date()
+
+  const startCheck = start.getTime()
+  const endCheck = end.getTime()
+  const nowCheck = current.getTime()
+
+  if (nowCheck >= endCheck) {
+    const err = new Error("Past bookings can't be modified");
+    return res.status(403).json({message: err.message})
+  }
+
+  if (endCheck <= startCheck) {
+    const err = new Error("endDate cannot be on or before startDate");
+    return res.status(400).json({message: err.message})
+  }
+
+  res.status(200).json(bookingToChange)
 })
 
 
