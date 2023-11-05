@@ -31,12 +31,12 @@ router.get("/", async (req, res) => {
 
   if (page >= 1 && size >=1) {
     query.limit = 20;
-    query.offset = size (page - 1)
+    query.offset = size * (page - 1)
   }
 
   let errors = {}
 
-  if (page <= 1) {
+  if (page < 1) {
     errors.page = "Page must be greater than or equal to 1"
   }
 
@@ -45,7 +45,7 @@ router.get("/", async (req, res) => {
   }
 
   if (minLat) {
-    if (minLat > 90 || minLat < -90 || typeof minLat !== "number") {
+    if (minLat > 90 || minLat < -90) {
       errors.minLat = "Minimum latitude is invalid";
     } else {
     query.where.lat >= minLat
@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
   }
 
   if (maxLat) {
-    if (maxLat > 90 || maxLat < -90 || typeof maxLat !== "number") {
+    if (maxLat > 90 || maxLat < -90) {
       errors.maxLat = "Maxiumum latitude is invalid";
     } else {
     query.where.lat <= maxLat
@@ -61,21 +61,21 @@ router.get("/", async (req, res) => {
 }
 
   if (minLng) {
-    if (minLng > 180 || minLng < -180 || typeof minLng !== "number") {
+    if (minLng > 180 || minLng < -180) {
       errors.minLng = "Minimum longitude is invalid";
     }
     query.where.lng >= minLng
   }
 
   if (maxLng) {
-    if (maxLng > 180 || maxLng < -180 || typeof maxLng !== "number") {
+    if (maxLng > 180 || maxLng < -180) {
       errors.minLng = "Maximum longitude is invalid";
     }
     query.where.lng <= maxLng
   }
 
   if (minPrice) {
-    if (minPrice < 1 || typeof price !== "number") {
+    if (minPrice < 1) {
       errors.minPrice = "Minimum price must be greater than or equal to 0";
     } else {
     query.where.minPrice >= minPrice
@@ -83,7 +83,7 @@ router.get("/", async (req, res) => {
 }
 
   if (maxPrice) {
-    if (maxPrice < 1 || typeof maxPrice !== "number") {
+    if (maxPrice < 1) {
       errors.maxPrice = "Maximum price must be greater than or equal to 0";
     } else {
     query.where.maxPrice <= maxPrice
@@ -95,6 +95,7 @@ router.get("/", async (req, res) => {
       errors: errors,
     };
    return res.status(400).json(allErrors);
+  }
 
 
   const spots = await Spot.findAll(query, {
@@ -107,6 +108,13 @@ router.get("/", async (req, res) => {
       },
     ],
   });
+
+  if (spots.length === 0) {
+    const err = new Error("No spots match these specifications");
+    return res.status(404).json({
+      message: err.message
+    })
+  }
 
   let spotList = [];
   spots.forEach((spot) => {
@@ -131,6 +139,7 @@ router.get("/", async (req, res) => {
       totalStars += review.stars;
     });
 
+
     spot.avgRating = totalStars / reviewCount;
 
     if (!reviews.length) {
@@ -143,7 +152,7 @@ router.get("/", async (req, res) => {
   let Spots = spotList;
 
   res.json({ Spots });
-}
+
 });
 
 // Get all Spots owned by the Current User
