@@ -17,7 +17,87 @@ const router = express.Router();
 
 // Get all Spots
 router.get("/", async (req, res) => {
-  const spots = await Spot.findAll({
+  let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+
+  let query = {
+    where: {},
+    include:[]
+  };
+
+  page = parseInt(page);
+  size = parseInt(size);
+  if (!page) page = 1;
+  if (!size) size= 20;
+
+  if (page >= 1 && size >=1) {
+    query.limit = 20;
+    query.offset = size (page - 1)
+  }
+
+  let errors = {}
+
+  if (page <= 1) {
+    errors.page = "Page must be greater than or equal to 1"
+  }
+
+  if (size <= 1) {
+    errors.size = "Size must be greater than or equal to 1"
+  }
+
+  if (minLat) {
+    if (minLat > 90 || minLat < -90 || typeof minLat !== "number") {
+      errors.minLat = "Minimum latitude is invalid";
+    } else {
+    query.where.lat >= minLat
+    }
+  }
+
+  if (maxLat) {
+    if (maxLat > 90 || maxLat < -90 || typeof maxLat !== "number") {
+      errors.maxLat = "Maxiumum latitude is invalid";
+    } else {
+    query.where.lat <= maxLat
+  }
+}
+
+  if (minLng) {
+    if (minLng > 180 || minLng < -180 || typeof minLng !== "number") {
+      errors.minLng = "Minimum longitude is invalid";
+    }
+    query.where.lng >= minLng
+  }
+
+  if (maxLng) {
+    if (maxLng > 180 || maxLng < -180 || typeof maxLng !== "number") {
+      errors.minLng = "Maximum longitude is invalid";
+    }
+    query.where.lng <= maxLng
+  }
+
+  if (minPrice) {
+    if (minPrice < 1 || typeof price !== "number") {
+      errors.minPrice = "Minimum price must be greater than or equal to 0";
+    } else {
+    query.where.minPrice >= minPrice
+  }
+}
+
+  if (maxPrice) {
+    if (maxPrice < 1 || typeof maxPrice !== "number") {
+      errors.maxPrice = "Maximum price must be greater than or equal to 0";
+    } else {
+    query.where.maxPrice <= maxPrice
+  }}
+
+  if (Object.keys(errors).length !== 0) {
+    const allErrors = {
+      message: "Bad Request",
+      errors: errors,
+    };
+   return res.status(400).json(allErrors);
+
+
+  const spots = await Spot.findAll(query, {
     include: [
       {
         model: SpotImage,
@@ -63,6 +143,7 @@ router.get("/", async (req, res) => {
   let Spots = spotList;
 
   res.json({ Spots });
+}
 });
 
 // Get all Spots owned by the Current User
