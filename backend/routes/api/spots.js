@@ -168,7 +168,7 @@ router.post("/", requireAuth, async (req, res) => {
 
   let errors = {};
 
-  console.log(req.body);
+  // console.log(req.body);
   if (address.length < 1) {
     errors.address = "Street address is required";
   }
@@ -472,9 +472,37 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
   const start = new Date(startDate)
   const end = new Date(endDate)
-
   const startCheck = start.getTime()
   const endCheck = end.getTime()
+
+  const checkOtherBookings = await Booking.findAll({
+    where: { spotId: spot.id },
+  });
+
+  let errors = {};
+
+  for (let booking of checkOtherBookings) {
+    const priorStarts = new Date(booking.startDate);
+    const priorStartCheck = priorStarts.getTime();
+    const priorEnds = new Date(booking.endDate);
+    const priorEndCheck = priorEnds.getTime();
+
+    if (priorStartCheck <= startCheck && priorStartCheck <= priorEndCheck) {
+      errors.startDate = "Start date conflicts with an existing booking";
+    }
+
+    if (priorStartCheck <= endCheck && endCheck <= priorEndCheck) {
+      errors.endDate = "End date conflicts with an existing booking";
+    }
+
+    if (Object.keys(errors).length >= 2) {
+      const allErrors = {
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: errors,
+      };
+      return res.status(403).json(allErrors);
+    }
+  }
 
 
   if (endCheck <= startCheck) {
