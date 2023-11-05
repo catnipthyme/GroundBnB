@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ["spotId", "updatedAt", "createdAt"]
       }
+    },
+    scopes: {
+      deleteImage: {
+        exclude: ["updatedAt", "createdAt"]
+      }
     }
   });
   return SpotImage;
