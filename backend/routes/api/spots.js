@@ -391,7 +391,7 @@ router.post("/:spotId/reviews", requireAuth, async(req, res) => {
   } else {
 
     const oldReviews = await Review.findAll({
-      where: {userId: user.id}
+      where: {userId: user.id, spotId: spot.id}
     })
 
     if (oldReviews.length > 0) {
