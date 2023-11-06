@@ -55,6 +55,7 @@ router.post("/:reviewId/images", requireAuth, async(req, res) => {
   const {user} = req;
   const {url} = req.body;
 
+
   const review = await Review.findByPk(req.params.reviewId)
   if (!review) {
     const err = new Error("Review couldn't be found");

@@ -239,7 +239,7 @@ router.get("/:spotId", async (req, res) => {
 
   if (!spot) {
     const err = new Error("Spot couldn't be found");
-    res.status(404).json({
+    return res.status(404).json({
       message: err.message,
     });
   }
@@ -333,13 +333,13 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   const spot = await Spot.findByPk(req.params.spotId);
   if (!spot) {
     const err = new Error("Spot couldn't be found");
-    res.status(404).json({
+    return res.status(404).json({
       message: err.message,
     });
   } else {
     if (spot.ownerId !== user.id) {
       const err = new Error("Forbidden");
-      res.status(403).json({
+      return res.status(403).json({
         message: err.message,
       });
     }
@@ -363,14 +363,14 @@ router.put("/:spotId", requireAuth, async (req, res) => {
   const spotToChange = await Spot.findByPk(req.params.spotId);
   if (!spotToChange) {
     const err = new Error("Spot couldn't be found");
-    res.status(404).json({
+    return res.status(404).json({
       message: err.message,
     });
   }
 
   if (spotToChange.ownerId !== user.id) {
     const err = new Error("Forbidden");
-    res.status(403).json({
+    return res.status(403).json({
       message: err.message,
     });
   }
@@ -585,21 +585,27 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
   let errors = {};
 
+
   for (let booking of checkOtherBookings) {
     const priorStarts = new Date(booking.startDate);
     const priorStartCheck = priorStarts.getTime();
     const priorEnds = new Date(booking.endDate);
     const priorEndCheck = priorEnds.getTime();
 
-    if (priorStartCheck <= startCheck && priorStartCheck <= priorEndCheck) {
-      errors.startDate = "Start date conflicts with an existing booking";
+    if (endCheck >= priorStartCheck && endCheck <= priorEndCheck) {
+      errors.endDate = "End date conflicts with an existing booking"
     }
 
-    if (priorStartCheck <= endCheck && endCheck <= priorEndCheck) {
+    if (startCheck >= priorStartCheck && startCheck <= priorEndCheck) {
+      errors.startDate = "Start date conflicts with an existing booking"
+    }
+
+    if (startCheck < priorStartCheck && endCheck > priorEndCheck) {
+      errors.startDate = "Start date conflicts with an existing booking";
       errors.endDate = "End date conflicts with an existing booking";
     }
 
-    if (Object.keys(errors).length >= 2) {
+    if (Object.keys(errors).length > 0) {
       const allErrors = {
         message: "Sorry, this spot is already booked for the specified dates",
         errors: errors,
@@ -620,7 +626,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     endDate,
   });
 
-  console.log(newBooking);
+  // console.log(newBooking);
 
   res.status(200).json(newBooking);
 });
