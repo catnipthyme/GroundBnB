@@ -108,7 +108,8 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
   }
 
   const checkOtherBookings = await Booking.findAll({
-    where: { spotId: bookingToChange.spotId },
+    where: { spotId: bookingToChange.spotId,
+    id: { [Op.ne]: bookingToChange.id} },
   });
 
   let errors = {};
@@ -119,15 +120,20 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
     const priorEnds = new Date(booking.endDate);
     const priorEndCheck = priorEnds.getTime();
 
-    if (priorStartCheck <= startCheck && priorStartCheck <= priorEndCheck) {
-      errors.startDate = "Start date conflicts with an existing booking";
+    if (endCheck >= priorStartCheck && endCheck <= priorEndCheck) {
+      errors.endDate = "End date conflicts with an existing booking"
     }
 
-    if (priorStartCheck <= endCheck && endCheck <= priorEndCheck) {
+    if (startCheck >= priorStartCheck && startCheck <= priorEndCheck) {
+      errors.startDate = "Start date conflicts with an existing booking"
+    }
+
+    if (startCheck < priorStartCheck && endCheck > priorEndCheck) {
+      errors.startDate = "Start date conflicts with an existing booking";
       errors.endDate = "End date conflicts with an existing booking";
     }
 
-    if (Object.keys(errors).length >= 2) {
+    if (Object.keys(errors).length > 0) {
       const allErrors = {
         message: "Sorry, this spot is already booked for the specified dates",
         errors: errors,
@@ -136,13 +142,13 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
     }
   }
 
-
   if (endCheck <= startCheck) {
     const err = new Error("endDate cannot be on or before startDate");
     return res.status(400).json({ message: err.message });
   }
+
   bookingToChange.startDate = startDate;
-  bookingToChange.endDate = endDate
+  bookingToChange.endDate = endDate;
 
   await bookingToChange.save();
 
