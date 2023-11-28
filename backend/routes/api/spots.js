@@ -350,7 +350,13 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
       preview,
     });
 
-    res.status(200).json(newImage);
+    const responseImage = {
+      id: newImage.id,
+      url: newImage.url,
+      preview: newImage.preview
+    }
+
+    res.status(200).json(responseImage);
   }
 });
 

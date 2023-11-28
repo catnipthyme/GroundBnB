@@ -78,7 +78,12 @@ router.post("/:reviewId/images", requireAuth, async(req, res) => {
       url
     });
 
-    res.status(200).json(newReviewImage)
+    const responseImage = {
+      id: newReviewImage.id,
+      url: newReviewImage.url,
+    }
+
+    res.status(200).json(responseImage)
   }
   }
 })
