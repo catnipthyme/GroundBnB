@@ -98,11 +98,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
-    // scopes: {
-    //   spotImagePost: {
-    //       exclude: ["spotId", "updatedAt", "createdAt"]
-    //   }
-    // }
   });
   return Spot;
 };
