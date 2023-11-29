@@ -149,6 +149,8 @@ router.get("/", async (req, res) => {
       spot.SpotImages.forEach((image) => {
         if (image.preview === true) {
           spot.previewImage = image.url;
+        } else {
+          spot.previewImage = "No previews available"
         }
       });
     }
