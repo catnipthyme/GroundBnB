@@ -13,6 +13,8 @@ const {
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const review = require("../../db/models/review");
+const spotimage = require("../../db/models/spotimage");
+const booking = require("../../db/models/booking");
 const router = express.Router();
 
 //Get all of the Current User's Bookings
@@ -37,11 +39,40 @@ router.get("/current", requireAuth, async (req, res) => {
           "price",
         ],
       },
+      {
+        model: SpotImage,
+      attributes: [
+        "url",
+        "preview"
+      ]}
     ],
   });
 
+  let withPreviewList = [];
+  userBookings.forEach((booking) => {
+    withPreviewList.push(booking.toJSON());
+  });
+
+if (Object.keys(SpotImage).length === 0) {
+  // console.log("NEVER")
+  Booking.Spot.previewImage = "No previews available"
+} else {
+  // console.log("Yo")
+  withPreviewList.forEach((booking) => {
+    // console.log("Hello")
+    if (booking.SpotImage.preview === true) {
+      // console.log("sigh")
+      booking.Spot.previewImage = booking.SpotImage.url
+    }
+    delete booking.SpotImage
+  })
+}
+
+
+
+
   const currentUserBookings = {};
-  currentUserBookings.Bookings = userBookings;
+  currentUserBookings.Bookings = withPreviewList;
   res.json(currentUserBookings);
 });
 

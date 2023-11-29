@@ -127,7 +127,7 @@ router.get("/", async (req, res) => {
       },
     ],
     ...query,
-    ...pagination,                                                 
+    ...pagination,
   });
 
   if (spots.length === 0) {
@@ -151,9 +151,6 @@ router.get("/", async (req, res) => {
           spot.previewImage = image.url;
         }
       });
-      if (!spot.previewImage) {
-        spot.previewImage = "No previews available";
-      }
     }
 
     delete spot.SpotImages;
