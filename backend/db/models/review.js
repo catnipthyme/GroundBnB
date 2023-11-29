@@ -20,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       Review.belongsTo(models.Spot, {
         foreignKey:'spotId'
       })
-      // Review.hasMany(models.SpotImage, {
-
-      // })
+      Review.belongsTo(models.SpotImage, {
+        foreignKey: 'spotId'
+      })
     }
   }
   Review.init({

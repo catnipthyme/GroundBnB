@@ -38,14 +38,45 @@ router.get("/current", requireAuth, async (req, res) => {
         ],
       },
       {
+        model: User,
+        attributes: [
+          "id",
+          "firstName",
+          "lastName"
+        ],
+      },
+      {
         model: ReviewImage,
         attributes: ["id", "url"],
+      },
+      {
+        model: SpotImage,
+        attributes: [
+          "preview",
+          "url"
+        ]
       }
     ],
   });
 
+  let reviewsList = [];
+  reviews.forEach((review) => {
+    reviewsList.push(review.toJSON());
+  })
+
+  if (Object.keys(SpotImage).length === 0) {
+    Review.Spot.previewImage = "No previews available"
+  } else {
+    reviewsList.forEach((review) => {
+      if (review.SpotImage.preview === true) {
+        review.Spot.previewImage = review.SpotImage.url
+      }
+      delete review.SpotImage
+    })
+  }
+
   const currentUserReviews = {};
-  currentUserReviews.Reviews = reviews;
+  currentUserReviews.Reviews = reviewsList;
   res.json(currentUserReviews);
 });
 
@@ -79,7 +110,12 @@ router.post("/:reviewId/images", requireAuth, async(req, res) => {
       url
     });
 
-    res.status(200).json(newReviewImage)
+    const responseImage = {
+      id: newReviewImage.id,
+      url: newReviewImage.url,
+    }
+
+    res.status(200).json(responseImage)
   }
   }
 })

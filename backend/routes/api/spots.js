@@ -24,15 +24,24 @@ router.get("/", async (req, res) => {
     where: {},
   };
 
-  page = parseInt(page);
-  size = parseInt(size);
-  if (!page) page = 1;
-  if (!size) size = 20;
 
-  if (page >= 1 && size >= 1) {
-    query.limit = 20;
-    query.offset = size * (page - 1);
+  const pagination = {}
+
+  if (page < 1 || page > 10 || page === undefined) {
+    page = 1
+  } else {
+    page = parseInt(page)
   }
+
+  if (size < 1 || size > 20 || size === undefined) {
+    size = 20
+  } else {
+   size = parseInt(size)
+  }
+
+  pagination.limit = size;
+  pagination.offset = size * (page - 1)
+
 
   let errors = {};
 
@@ -118,6 +127,7 @@ router.get("/", async (req, res) => {
       },
     ],
     ...query,
+    ...pagination,
   });
 
   if (spots.length === 0) {
@@ -141,9 +151,6 @@ router.get("/", async (req, res) => {
           spot.previewImage = image.url;
         }
       });
-      if (!spot.previewImage) {
-        spot.previewImage = "No previews available";
-      }
     }
 
     delete spot.SpotImages;
@@ -166,7 +173,7 @@ router.get("/", async (req, res) => {
 
   let Spots = spotList;
 
-  res.json({ Spots });
+  res.json({ Spots, page, size });
 });
 
 // Get all Spots owned by the Current User
@@ -350,7 +357,13 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
       preview,
     });
 
-    res.status(200).json(newImage);
+    const responseImage = {
+      id: newImage.id,
+      url: newImage.url,
+      preview: newImage.preview
+    }
+
+    res.status(200).json(responseImage);
   }
 });
 
