@@ -230,9 +230,10 @@ router.get("/current", requireAuth, async (req, res) => {
 
     res.json(currentUserSpots);
   } else {
+    // res.json("User has no spots")
     const errors = {};
-    errors.message = "Authentication required";
-    res.status(401).json(errors);
+    errors.message = "User has no spots";
+    res.status(200).json(errors);
   }
 });
 
