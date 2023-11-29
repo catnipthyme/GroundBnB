@@ -143,7 +143,7 @@ router.get("/", async (req, res) => {
   });
 
   spotList.forEach((spot) => {
-    if (!spot.SpotImages) {
+    if (Object.keys(spot.SpotImages).length === 0) {
       spot.previewImage = "No previews available";
     } else {
       spot.SpotImages.forEach((image) => {
