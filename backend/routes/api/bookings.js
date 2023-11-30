@@ -107,77 +107,81 @@ router.delete("/:bookingId", requireAuth, async (req, res) => {
   res.status(200).json({ message: "Successfully deleted" });
 });
 
-//Edit a Booking
-router.put("/:bookingId", requireAuth, async (req, res) => {
-  const { user } = req;
-  const { startDate, endDate } = req.body;
-
-  const bookingToChange = await Booking.findByPk(req.params.bookingId);
-  if (!bookingToChange) {
-    const err = new Error("Booking couldn't be found");
-    return res.status(404).json({ message: err.message });
-  }
-
-  if (bookingToChange.userId !== user.id) {
-    const err = new Error("Forbidden");
-    return res.status(403).json({
-      message: err.message,
-    });
-  }
-
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const current = new Date();
-
-  const startCheck = start.getTime();
-  const endCheck = end.getTime();
-  const nowCheck = current.getTime();
-
-  if (nowCheck >= endCheck) {
-    const err = new Error("Past bookings can't be modified");
-    return res.status(403).json({ message: err.message });
-  }
-
-  const checkOtherBookings = await Booking.findAll({
-    where: { spotId: bookingToChange.spotId },
-  });
-
-  let errors = {};
-
-  for (let booking of checkOtherBookings) {
-    const priorStarts = new Date(booking.startDate);
-    const priorStartCheck = priorStarts.getTime();
-    const priorEnds = new Date(booking.endDate);
-    const priorEndCheck = priorEnds.getTime();
-
-    if (priorStartCheck <= startCheck && priorStartCheck <= priorEndCheck) {
-      errors.startDate = "Start date conflicts with an existing booking";
-    }
-
-    if (priorStartCheck <= endCheck && endCheck <= priorEndCheck) {
-      errors.endDate = "End date conflicts with an existing booking";
-    }
-
-    if (Object.keys(errors).length >= 2) {
-      const allErrors = {
-        message: "Sorry, this spot is already booked for the specified dates",
-        errors: errors,
-      };
-      return res.status(403).json(allErrors);
-    }
-  }
+//Edit a Booking TAKE TWO
 
 
-  if (endCheck <= startCheck) {
-    const err = new Error("endDate cannot be on or before startDate");
-    return res.status(400).json({ message: err.message });
-  }
-  bookingToChange.startDate = startDate;
-  bookingToChange.endDate = endDate
 
-  await bookingToChange.save();
+// //Edit a Booking
+// router.put("/:bookingId", requireAuth, async (req, res) => {
+//   const { user } = req;
+//   const { startDate, endDate } = req.body;
 
-  res.status(200).json(bookingToChange);
-});
+//   const bookingToChange = await Booking.findByPk(req.params.bookingId);
+//   if (!bookingToChange) {
+//     const err = new Error("Booking couldn't be found");
+//     return res.status(404).json({ message: err.message });
+//   }
+
+//   if (bookingToChange.userId !== user.id) {
+//     const err = new Error("Forbidden");
+//     return res.status(403).json({
+//       message: err.message,
+//     });
+//   }
+
+//   const start = new Date(startDate);
+//   const end = new Date(endDate);
+//   const current = new Date();
+
+//   const startCheck = start.getTime();
+//   const endCheck = end.getTime();
+//   const nowCheck = current.getTime();
+
+//   if (nowCheck >= endCheck) {
+//     const err = new Error("Past bookings can't be modified");
+//     return res.status(403).json({ message: err.message });
+//   }
+
+//   const checkOtherBookings = await Booking.findAll({
+//     where: { spotId: bookingToChange.spotId },
+//   });
+
+//   let errors = {};
+
+//   for (let booking of checkOtherBookings) {
+//     const priorStarts = new Date(booking.startDate);
+//     const priorStartCheck = priorStarts.getTime();
+//     const priorEnds = new Date(booking.endDate);
+//     const priorEndCheck = priorEnds.getTime();
+
+//     if (priorStartCheck <= startCheck && priorStartCheck <= priorEndCheck) {
+//       errors.startDate = "Start date conflicts with an existing booking";
+//     }
+
+//     if (priorStartCheck <= endCheck && endCheck <= priorEndCheck) {
+//       errors.endDate = "End date conflicts with an existing booking";
+//     }
+
+//     if (Object.keys(errors).length >= 2) {
+//       const allErrors = {
+//         message: "Sorry, this spot is already booked for the specified dates",
+//         errors: errors,
+//       };
+//       return res.status(403).json(allErrors);
+//     }
+//   }
+
+
+//   if (endCheck <= startCheck) {
+//     const err = new Error("endDate cannot be on or before startDate");
+//     return res.status(400).json({ message: err.message });
+//   }
+//   bookingToChange.startDate = startDate;
+//   bookingToChange.endDate = endDate
+
+//   await bookingToChange.save();
+
+//   res.status(200).json(bookingToChange);
+// });
 
 module.exports = router;

@@ -592,7 +592,22 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
   }
 })
 
+//Create a Booking from a Spot based on the Spot's id TAKE TWO
+router.post("/:spotId/bookings", requireAuth, async (req, res) => {
+  const {user} = req;
+  const {startDate, endDate} = req.body;
 
+  // find out if spot exists. If so, is it owned by the logged in user? Sends errors if so
+  const spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    const err = new Error("Spot couldn't be fouund");
+    return res.status(404).json({message: err.message})
+  }
+  if (spot.ownerId === user.id) {
+    const err = new Error("Forbidden");
+    return res.status(403).json({message: err.message})
+  }
+})
 
 
 
