@@ -143,12 +143,14 @@ router.get("/", async (req, res) => {
   });
 
   spotList.forEach((spot) => {
-    if (!spot.SpotImages) {
+    if (Object.keys(spot.SpotImages).length === 0) {
       spot.previewImage = "No previews available";
     } else {
       spot.SpotImages.forEach((image) => {
         if (image.preview === true) {
           spot.previewImage = image.url;
+        } else {
+          spot.previewImage = "No previews available"
         }
       });
     }
@@ -228,9 +230,10 @@ router.get("/current", requireAuth, async (req, res) => {
 
     res.json(currentUserSpots);
   } else {
+    // res.json("User has no spots")
     const errors = {};
-    errors.message = "Authentication required";
-    res.status(401).json(errors);
+    errors.message = "User has no spots";
+    res.status(200).json(errors);
   }
 });
 
