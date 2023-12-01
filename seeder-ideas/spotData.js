@@ -1,5 +1,5 @@
 // Seeder wip
-// add 15 spots
+// add 15 spots -- DONE
 // fix down portion
 
 'use strict';
@@ -86,7 +86,7 @@ module.exports = {
         lat: 35.984421,
         lng: -103.29229,
         name: 'Doomsday Bunker',
-        description: 'Hurry, before it books up! Maybe it'll be your turn in the bunker when the end of the world strikes!',
+        description: "Hurry, before it books up! Maybe it'll be your turn in the bunker when the end of the world strikes!",
         price: 299.99
       },
       {
@@ -146,7 +146,7 @@ module.exports = {
         lat: 25.73117,
         lng: 32.61074,
         name: "Unnamed Noble's Tomb",
-        description: "Bring a fan, it gets hot in the Valley of the Kings! Enjoy relaxing in the pillaged remains of what once was an unknown Egyptian noble's resting spot."",
+        description: "Bring a fan, it gets hot in the Valley of the Kings! Enjoy relaxing in the pillaged remains of what once was an unknown Egyptian noble's resting spot.",
         price: 37
       },
       {
