@@ -1,5 +1,5 @@
 // Seeder wip
-// add 0-2 pics per review (xx reviews for 15 spots)
+// add 0-2 pics per review (30 reviews for 15 spots)
 // fix down portion
 
 'use strict';
@@ -18,27 +18,171 @@ module.exports = {
     await ReviewImage.bulkCreate([
       {
         reviewId: 1,
-        url: 'https://picsum.photos/201'
+        url: ''
       },
       {
         reviewId: 2,
-        url: 'https://picsum.photos/202'
+        url: ''
       },
       {
         reviewId: 2,
-        url: 'https://picsum.photos/203'
+        url: ''
       },
       {
         reviewId: 3,
-        url: 'https://picsum.photos/204'
+        url: ''
       },
       {
         reviewId: 4,
-        url: 'https://picsum.photos/205'
+        url: ''
       },
       {
         reviewId: 3,
-        url: 'https://picsum.photos/206'
+        url: ''
+      },
+      {
+        reviewId: 1,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 4,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 1,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 4,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 1,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 4,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 1,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 4,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 1,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 4,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 1,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 2,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
+      },
+      {
+        reviewId: 4,
+        url: ''
+      },
+      {
+        reviewId: 3,
+        url: ''
       },
     ], options, { validate: true });
   },

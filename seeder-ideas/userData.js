@@ -1,5 +1,5 @@
 // Seeder wip
-// add 10 users -- DONE
+// add 15 users -- DONE
 // fix down portion
 
 'use strict';
@@ -85,6 +85,41 @@ module.exports = {
         firstName: 'Demojuu',
         lastName: 'Userjuu',
         hashedPassword: bcrypt.hashSync('password10')
+      },
+      {
+        email: 'demo11@user.io',
+        username: 'DemoUser11',
+        firstName: 'Demojuuichi',
+        lastName: 'Userjuuichi',
+        hashedPassword: bcrypt.hashSync('password11')
+      },
+      {
+        email: 'demo12@user.io',
+        username: 'DemoUser12',
+        firstName: 'Demojuuni',
+        lastName: 'Userjuuni',
+        hashedPassword: bcrypt.hashSync('password12')
+      },
+      {
+        email: 'demo13@user.io',
+        username: 'DemoUser13',
+        firstName: 'Demojuusan',
+        lastName: 'Userjuusan',
+        hashedPassword: bcrypt.hashSync('password13')
+      },
+      {
+        email: 'demo14@user.io',
+        username: 'DemoUser14',
+        firstName: 'Demojuuyon',
+        lastName: 'Userjuuyon',
+        hashedPassword: bcrypt.hashSync('password14')
+      },
+      {
+        email: 'demo15@user.io',
+        username: 'DemoUser15',
+        firstName: 'Demojuugo',
+        lastName: 'Userjuugo',
+        hashedPassword: bcrypt.hashSync('password15')
       }
     ], options, { validate: true });
   },

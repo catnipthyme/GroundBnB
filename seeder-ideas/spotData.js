@@ -74,7 +74,7 @@ module.exports = {
         lat: 44.42040,
         lng: 12.2148,
         name: 'Probably Not a Trap',
-        description: 'No, there really is a lovely cask of Amanontillado in that closet, here, let me show you!',
+        description: 'No, there really is a lovely cask of Amontillado in that closet, here, let me show you!',
         price: 249.99
       },
       {
