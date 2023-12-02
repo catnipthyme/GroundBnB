@@ -67,7 +67,6 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-// if status code is 500, then include title
 
 
 module.exports = app;
