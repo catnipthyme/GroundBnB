@@ -77,7 +77,7 @@ router.get("/current", requireAuth, async (req, res) => {
 
   const currentUserReviews = {};
   currentUserReviews.Reviews = reviewsList;
-  res.json(currentUserReviews);
+  return res.json(currentUserReviews);
 });
 
 
@@ -90,11 +90,11 @@ router.post("/:reviewId/images", requireAuth, async(req, res) => {
   const review = await Review.findByPk(req.params.reviewId)
   if (!review) {
     const err = new Error("Review couldn't be found");
-    res.status(404).json({message: err.message});
+    return res.status(404).json({message: err.message});
   } else {
     if (review.userId !== user.id) {
       const err = new Error("Forbidden");
-      res.status(403).json({message: err.message});
+      return res.status(403).json({message: err.message});
     }
 
     const reviewImages = await ReviewImage.findAll({
@@ -102,7 +102,7 @@ router.post("/:reviewId/images", requireAuth, async(req, res) => {
     })
     if (reviewImages.length === 10) {
       const err = new Error("Maximum number of images for this resource was reached");
-      res.status(403).json({message: err.message})
+      return res.status(403).json({message: err.message})
     } else {
 
     const newReviewImage = await ReviewImage.create({
@@ -115,7 +115,7 @@ router.post("/:reviewId/images", requireAuth, async(req, res) => {
       url: newReviewImage.url,
     }
 
-    res.status(200).json(responseImage)
+  return res.status(200).json(responseImage)
   }
   }
 })
@@ -152,10 +152,10 @@ router.put("/:reviewId", requireAuth, async(req, res) => {
       message: "Bad Request",
       errors: errors
     }
-    res.status(400).json(allErrors)
+    return res.status(400).json(allErrors)
   } else {
     await reviewToChange.save();
-    res.status(200).json(reviewToChange)
+    return res.status(200).json(reviewToChange)
   }
 
 })
@@ -179,7 +179,7 @@ router.delete("/:reviewId", requireAuth, async(req, res) => {
   }
 
   await reviewToDelete.destroy();
-  res.status(200).json({message: "Successfully deleted"})
+  return res.status(200).json({message: "Successfully deleted"})
 })
 
 module.exports = router;
