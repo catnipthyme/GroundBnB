@@ -1,3 +1,4 @@
 import Navigation from './Navigation'
+import ProfileButton from './ProfileButton'
 
-export { Navigation }
+export { Navigation, ProfileButton }
