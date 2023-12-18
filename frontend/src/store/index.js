@@ -5,4 +5,4 @@ import { thunkLogin, thunkRestoreUser, thunkSignup, thunkLogout } from "./sessio
 
 
 
-export { configureStore, csrfFetch, restoreCSRF, thunkLogin, thunkRestoreUser, thunkSignup, thunkLogout }
+export { configureStore, csrfFetch, restoreCSRF, thunkLogin, thunkRestoreUser, thunkSignup, thunkLogout, sessionReducer }
