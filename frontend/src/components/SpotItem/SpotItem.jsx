@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
+import './SpotItem.css'
 
 
 const SpotItem = ({ spot }) => {
@@ -22,20 +23,18 @@ const SpotItem = ({ spot }) => {
         <div className='spotTile'>
           <div className='thumbnailImage'>
             <img
-              style={{ height: 200, width: 200, padding: 20, borderRadius: '10%' }}
+              className='spotPic'
               src={spot.previewImage}
               alt={spot.name}
               />
           </div>
-          <div className='locationText'>
+          <div className='spotLocation'>
             {`${spot.city}, ${spot.state}`}
           </div>
-          <div className='priceText'>
-            {`$${spot.price} night`}
-          </div>
-          <div className='reviewText'>
-            <i className="fas fa-star" />
-            {roundedRatingScore(ratingScore)}
+          <div className='priceTextReview'>
+            <p>{`$${spot.price} night`}</p>
+            <p><i className="fas fa-star" />
+            {roundedRatingScore(ratingScore)}</p>
           </div>
         </div>
       </Link>

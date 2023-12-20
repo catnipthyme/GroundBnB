@@ -1,0 +1,6 @@
+.allSpotsDisplay {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0px 0px 0px 0px
+}

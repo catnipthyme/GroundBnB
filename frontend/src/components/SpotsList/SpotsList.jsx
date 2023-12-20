@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { thunkLoadSpots } from "../../store/spots";
 import { SpotItem } from "../SpotItem";
+import './SpotsList.css'
 
 const SpotsList = () => {
   const dispatch = useDispatch()
@@ -14,12 +15,11 @@ const SpotsList = () => {
 
   return (
     <div>
-      <ul>
+      <ul className='allSpotsDisplay'>
         {spots.map((spot) => (
           <SpotItem
             spot={spot}
             key={spot.id}
-            previewImage={spot.previewImage}
           />
         ))}
       </ul>
