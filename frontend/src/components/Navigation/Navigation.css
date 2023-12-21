@@ -34,7 +34,7 @@
 .userDropDownMenu {
   background-color: rgb(235, 235, 235);
   border: solid black 2px;
-  margin-top: 5px;
+  margin-top: -5px;
   height: 100px;
   width: auto;
   display: flex;
@@ -45,7 +45,7 @@
 .sessionDropDownMenu {
   background-color: rgb(235, 235, 235);
   border: solid black 2px;
-  margin-top: 3px;
+  margin-top: -5px;
   height: 55px;
   width: 120px;
   display: flex;
@@ -88,4 +88,9 @@
   background-color: gray;
   color: white;
   cursor: pointer;
+}
+
+p {
+  padding-left: 10px;
+  padding-right: 10px
 }

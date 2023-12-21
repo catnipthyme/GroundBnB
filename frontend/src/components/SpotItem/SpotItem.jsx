@@ -19,13 +19,13 @@ const SpotItem = ({ spot }) => {
 
 
   return (
-      <Link
-        className='allSpotTiles'
-        to={`/spots/${spot.id}`}
-        key={spot.id}
-        title={spot.name}
-      >
+
         <div className='spotTile'>
+        <Link
+          to={`/spots/${spot.id}`}
+          key={spot.id}
+          title={spot.name}
+        >
           <div className='thumbnailImage'>
             <img
               className='spotPic'
@@ -43,8 +43,9 @@ const SpotItem = ({ spot }) => {
             {/* <p><i className="fas fa-star" />
             {roundedRatingScore(ratingScore)}</p> */}
           </div>
+          </Link>
         </div>
-      </Link>
+
   )
 }
 

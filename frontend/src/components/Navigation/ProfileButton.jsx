@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div className = "userDropDownMenu">
-            <p className='userInfo'>Hello, {user.username}</p>
+            <p className='userInfo'>Hello, {user.firstName}</p>
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <p className='userInfo'>{user.email}</p>
             <p className='manageSpots'>Manage Spots</p>
