@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 import { OpenModalMenuItem } from './';
 import { LoginFormModal } from '../LoginFormModal';
 import { SignupFormModal } from '../SignupFormModal';
+import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -40,22 +41,22 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
+    <div className="menu">
+      <button className='profileDropDown' onClick={toggleMenu}>
+        <i className="fa-solid fa-bars" />
+        <i className="fa-solid fa-circle-user fa-lg" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={thunkLogout}>Log Out</button>
-            </li>
-          </>
+          <div className = "userDropDownMenu">
+            <p className='userInfo'>Hello, {user.username}</p>
+            {/* <li>{user.firstName} {user.lastName}</li> */}
+            <p className='userInfo'>{user.email}</p>
+            <p className='manageSpots'>Manage Spots</p>
+            <button className='logoutButton' onClick={thunkLogout}>Log Out</button>
+          </div>
         ) : (
-          <>
+          <div className = "sessionDropDownMenu">
               <OpenModalMenuItem
                 itemText="Log In"
                 onButtonClick={closeMenu}
@@ -66,10 +67,10 @@ function ProfileButton({ user }) {
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-          </>
+          </div>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

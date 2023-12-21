@@ -1,6 +1,7 @@
 .allSpotTiles {
   display: grid;
-  width: 202px
+  justify-self: center;
+  width: 250px
 }
 
 .spotTile {
@@ -16,11 +17,12 @@
 }
 
 .spotLocation {
-  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .spotPic {
-  height: 200px;
+  height: 250px;
   width: 100%;
   border: solid black 1px
 }

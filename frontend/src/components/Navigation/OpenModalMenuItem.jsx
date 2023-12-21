@@ -16,7 +16,7 @@ function OpenModalMenuItem({
   };
 
   return (
-    <li onClick={onClick}>{itemText}</li>
+    <p className='sessionInfo' onClick={onClick}>{itemText}</p>
   );
 }
 

@@ -8,12 +8,17 @@ const SpotItem = ({ spot }) => {
   const ratingScore = spot.avgRating
 
   const roundedRatingScore = (ratingScore) => {
+    if (ratingScore === "No reviews available") {
+      return "NEW"
+    } else {
     return Number.parseFloat(ratingScore).toFixed(2)
+    }
   }
 
 
+
+
   return (
-    <ul>
       <Link
         className='allSpotTiles'
         to={`/spots/${spot.id}`}
@@ -29,16 +34,17 @@ const SpotItem = ({ spot }) => {
               />
           </div>
           <div className='spotLocation'>
-            {`${spot.city}, ${spot.state}`}
-          </div>
-          <div className='priceTextReview'>
-            <p>{`$${spot.price} night`}</p>
+            <p>{`${spot.city}, ${spot.state}`}</p>
             <p><i className="fas fa-star" />
             {roundedRatingScore(ratingScore)}</p>
           </div>
+          <div className='priceTextReview'>
+            <p>{`$${spot.price} night`}</p>
+            {/* <p><i className="fas fa-star" />
+            {roundedRatingScore(ratingScore)}</p> */}
+          </div>
         </div>
       </Link>
-    </ul>
   )
 }
 

@@ -7,18 +7,22 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
+    <ul className="navBar">
+      <h1>
+        <NavLink exact to="/">
+          <p style={{color: "#e26f22"}}>
+            <i className="fa-brands fa-airbnb fa-xl" style={{color: "#e26f22"}} />
+            groundbnb
+          </p>
+        </NavLink>
+      </h1>
       {isLoaded && (
-        <li>
+      <div>
           <ProfileButton user={sessionUser} />
-        </li>
+      </div>
       )}
     </ul>
   );
 }
 
 export default Navigation;
-
