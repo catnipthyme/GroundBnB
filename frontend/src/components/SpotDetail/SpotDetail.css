@@ -41,6 +41,8 @@ img {
   justify-content: space-between;
   width: 100%;
   margin-top: 15px;
+  border-bottom: solid gray;
+  padding-bottom: 15px;
 }
 
 .spotDescription {
@@ -48,11 +50,52 @@ img {
   padding: 0;
   margin-top: 0;
   margin-bottom: 15px;
-  max-width: 900px
+  max-width: 1000px;
+  margin-right: 20px;
 }
 
 .bookingDetails {
   border: 2px solid black;
-  border-radius: 10px;;
+  border-radius: 10px;
+  background-color: rgb(235, 235, 235);
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.bookingPriceReviews {
+  width: 280px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  align-items: flex-end
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  /* align-content: space-between; */
+  /* column-gap: 20px; */
+}
+
+.littleReview {
+  display: flex;
+
+
+}
+
+.nightPriceData {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  /* align-content: flex-start; */
+  margin: 0;
+}
+
+.reserveButton {
+  background-color: rgb(161, 53, 53);
+  color: white;
+  cursor: pointer;
+  width: 200px;
+  align-self: center;
 }

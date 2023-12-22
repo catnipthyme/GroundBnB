@@ -78,6 +78,11 @@ const SpotDetail = () => {
     dispatch(thunkReceiveSpot(spotId))
   }, [dispatch, spotId])
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    alert("Feature coming soon.")
+  };
+
   if (!spot.Owner || !spotImageArr) return
 
   if (!spot) return null
@@ -106,19 +111,23 @@ const SpotDetail = () => {
         </div>
         <div className='bookingDetails'>
           <div className='bookingPriceReviews'>
-            <h2>${spot.price}</h2>
-            <div className='nightReviewData'>
+            <div className='nightPriceData'>
+              <h2>${spot.price}</h2>
               <p>night</p>
-              <p><i className="fas fa-star" /> {roundedRatingScore(ratingScore)} - {reviewReviews(numReviews)}</p>
             </div>
+            <p className='littleReview'><i className="fas fa-star" /> {roundedRatingScore(ratingScore)} - {reviewReviews(numReviews)}</p>
           </div>
-          <button className='reserveButton'>Reserve Button</button>
+          <button className='reserveButton' onClick={handleClick}>Reserve Button</button>
         </div>
       </div>
     </div>
       <div>
         <h1><i className="fas fa-star" /> {roundedRatingScore(ratingScore)} - {reviewReviews(numReviews)}</h1>
-        <button className='reviewButton'>Post Your Review</button>
+        <button
+          className='reviewButton'
+        >
+          Post Your Review
+        </button>
       <div>
         {noReviews(numReviews)}
       </div>
