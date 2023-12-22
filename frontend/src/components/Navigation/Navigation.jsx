@@ -7,6 +7,7 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
+    <>
     <ul className="navBar">
       <h1>
         <NavLink exact to="/">
@@ -22,6 +23,8 @@ function Navigation({ isLoaded }) {
       </div>
       )}
     </ul>
+    <section id='bar' />
+    </>
   );
 }
 

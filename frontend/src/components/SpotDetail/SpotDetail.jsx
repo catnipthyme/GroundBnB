@@ -2,6 +2,7 @@ import{ useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { thunkReceiveSpot } from '../../store/spots';
+import './SpotDetail.css'
 
 
 const SpotDetail = () => {
@@ -43,11 +44,41 @@ const SpotDetail = () => {
     else return 'REVIEWS HERE'
   }
 
+  const spotImageArr = spot.SpotImages
+  // console.log('spot image array : ', spotImageArr)
+
+  const mainImage = (spotImageArr) => {
+    if (!spotImageArr) return 'https://cdn.discordapp.com/attachments/770853160410939414/1187823768446435450/wood-fibre-boards-2857073_1280.jpg?ex=65984a17&is=6585d517&hm=00ad4dd099ca9bba189d13de1ceed44aaca0cc2d972b475e13469115922efbf3&'
+    return spotImageArr[0].url
+  }
+
+  const sideImg1 = (spotImageArr) => {
+    if (!spotImageArr[1]) return 'https://cdn.discordapp.com/attachments/770853160410939414/1187823768446435450/wood-fibre-boards-2857073_1280.jpg?ex=65984a17&is=6585d517&hm=00ad4dd099ca9bba189d13de1ceed44aaca0cc2d972b475e13469115922efbf3&'
+    return spotImageArr[1].url
+  }
+
+  const sideImg2 = (spotImageArr) => {
+    if (!spotImageArr[2]) return 'https://cdn.discordapp.com/attachments/770853160410939414/1187823768446435450/wood-fibre-boards-2857073_1280.jpg?ex=65984a17&is=6585d517&hm=00ad4dd099ca9bba189d13de1ceed44aaca0cc2d972b475e13469115922efbf3&'
+    return spotImageArr[2].url
+  }
+
+  const sideImg3 = (spotImageArr) => {
+    if (!spotImageArr[3]) return 'https://cdn.discordapp.com/attachments/770853160410939414/1187823768446435450/wood-fibre-boards-2857073_1280.jpg?ex=65984a17&is=6585d517&hm=00ad4dd099ca9bba189d13de1ceed44aaca0cc2d972b475e13469115922efbf3&'
+    return spotImageArr[3].url
+  }
+
+  const sideImg4 = (spotImageArr) => {
+    if (!spotImageArr[4]) return 'https://cdn.discordapp.com/attachments/770853160410939414/1187823768446435450/wood-fibre-boards-2857073_1280.jpg?ex=65984a17&is=6585d517&hm=00ad4dd099ca9bba189d13de1ceed44aaca0cc2d972b475e13469115922efbf3&'
+    return spotImageArr[4].url
+  }
+
+  // console.log('plz work: ', mainImage(spotImageArr))
+
   useEffect(() => {
     dispatch(thunkReceiveSpot(spotId))
   }, [dispatch, spotId])
 
-  if (!spot.Owner) return
+  if (!spot.Owner || !spotImageArr) return
 
   if (!spot) return null
 
@@ -60,16 +91,17 @@ const SpotDetail = () => {
         <h2 id='spotLocation'>{spot.city}, {spot.state}, {spot.country}</h2>
       </div>
       <div className='spotImages'>
-        <div id='mainImg'>
-          main image here
-        </div>
-        <div id='subImgs'>
-          four small images go here
+        <img id='mainImg' src={mainImage(spotImageArr)} />
+        <div id='subImgSection'>
+          <img class='subImgs' src={sideImg1(spotImageArr)} />
+          <img class='subImgs' src={sideImg2(spotImageArr)} />
+          <img class='subImgs' src={sideImg3(spotImageArr)} />
+          <img class='subImgs' src={sideImg4(spotImageArr)} />
         </div>
       </div>
       <div className='spotDetails'>
         <div className='spotTextDetails'>
-        <h1>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
+          <h1 className='spotDescription'>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
           <p className='spotDescription'>{spot.description}</p>
         </div>
         <div className='bookingDetails'>

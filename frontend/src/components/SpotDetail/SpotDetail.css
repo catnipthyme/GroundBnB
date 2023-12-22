@@ -1,0 +1,58 @@
+.spotsPageLayout {
+  display: flex;
+  flex-direction: column;
+  max-width: auto;
+  padding-left: 35px;
+}
+
+img {
+  border: solid black 1px;
+  margin: 3px;
+}
+
+.spotImages {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+}
+
+#mainImg {
+  width: 50%;
+  height: auto;
+  margin-right: 10px;
+}
+
+#subImgSection {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
+
+.subImgs {
+  width: 45%;
+  height: 45%
+}
+
+.spotDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.spotDescription {
+  display: inline-flex;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 15px;
+  max-width: 900px
+}
+
+.bookingDetails {
+  border: 2px solid black;
+  border-radius: 10px;;
+  min-width: 300px;
+}

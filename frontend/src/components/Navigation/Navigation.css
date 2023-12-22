@@ -13,12 +13,19 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
-  border-bottom: solid gray;
+  /* border-bottom: solid gray; */
   height: 125px;
-  width:95%;
+  width:100%;
   position: static;
-  margin-left: 25px;
-  margin-right: 25px
+  /* margin-left: 25px;
+  margin-right: 25px; */
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0
+}
+
+#bar {
+  border-bottom: solid gray;
 }
 
 .profileDropDown {
