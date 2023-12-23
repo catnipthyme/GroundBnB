@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom'
 import * as sessionActions from '../../store/session';
 import { OpenModalMenuItem } from './';
 import { LoginFormModal } from '../LoginFormModal';
@@ -36,6 +37,8 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.thunkLogout());
     closeMenu()
+
+
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -53,7 +56,7 @@ function ProfileButton({ user }) {
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <p className='userInfo'>{user.email}</p>
             <p className='manageSpots'>Manage Spots</p>
-            <button className='logoutButton' onClick={thunkLogout}>Log Out</button>
+            <button className='logoutButton' onClick={thunkLogout}><NavLink exact to="/">Log Out</NavLink></button>
           </div>
         ) : (
           <div className = "sessionDropDownMenu">

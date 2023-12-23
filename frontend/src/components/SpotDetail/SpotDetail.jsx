@@ -98,10 +98,10 @@ const SpotDetail = () => {
       <div className='spotImages'>
         <img id='mainImg' src={mainImage(spotImageArr)} />
         <div id='subImgSection'>
-          <img class='subImgs' src={sideImg1(spotImageArr)} />
-          <img class='subImgs' src={sideImg2(spotImageArr)} />
-          <img class='subImgs' src={sideImg3(spotImageArr)} />
-          <img class='subImgs' src={sideImg4(spotImageArr)} />
+          <img className='subImgs' src={sideImg1(spotImageArr)} />
+          <img className='subImgs' src={sideImg2(spotImageArr)} />
+          <img className='subImgs' src={sideImg3(spotImageArr)} />
+          <img className='subImgs' src={sideImg4(spotImageArr)} />
         </div>
       </div>
       <div className='spotDetails'>
