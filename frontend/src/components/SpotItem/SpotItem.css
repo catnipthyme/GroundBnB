@@ -1,0 +1,38 @@
+/* .allSpotTiles {
+  display: grid;
+  justify-self: center;
+  width: 250px
+} */
+
+.spotTile {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  margin-top: 50px;
+}
+
+.priceTextReview {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spotLocation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spotPic {
+  height: 250px;
+  width: 100%;
+  border: solid black 1px
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+}

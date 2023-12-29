@@ -1,3 +1,110 @@
 .hidden {
   display: none
 }
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  /* border-bottom: solid gray; */
+  height: 125px;
+  width:100%;
+  position: static;
+  /* margin-left: 25px;
+  margin-right: 25px; */
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0
+}
+
+#bar {
+  border-bottom: solid gray;
+}
+
+.profileDropDown {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 70px;
+  height: 30px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.userDropDownMenu {
+  background-color: rgb(235, 235, 235);
+  border: solid black 2px;
+  margin-top: -5px;
+  height: 100px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  position: relative;
+}
+
+.sessionDropDownMenu {
+  background-color: rgb(235, 235, 235);
+  border: solid black 2px;
+  margin-top: -5px;
+  height: 55px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-content: space-between;
+}
+
+.sessionInfo {
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 15px;
+  cursor: pointer;
+}
+
+.userInfo {
+  margin-block-start: 5px;
+  margin-block-end: 0;
+  margin-inline-start: 10px;
+  margin-inline-end: 10px
+}
+
+.manageSpots {
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 10px;
+  margin-inline-end: 10px;
+  padding: 5px, 5px, 10px, 10px
+}
+
+
+.logoutButton {
+  align-self: center;
+  width: 70px;
+  height: 25px;
+  border-radius: 20px;
+  border: solid black 1px;
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+}
+
+p {
+  padding-left: 10px;
+  padding-right: 10px
+}
+
+#createASpotLink {
+  position: absolute;
+  top: 43px;
+  right: 100px;
+}

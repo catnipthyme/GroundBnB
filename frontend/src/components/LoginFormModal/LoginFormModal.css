@@ -1,0 +1,47 @@
+#modal-content {
+  background-color: rgb(235, 235, 235);
+  border-radius: 10px;
+  width: 300px;
+  height: 250px;
+}
+
+.logInModal {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.logInFormModal {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  background-color: rgb(225, 232, 247);
+  margin-bottom: 10px;
+  width: 250px
+}
+
+button {
+  /* background-color: gray;
+  color: white; */
+  margin-bottom: 10px;
+  height: 25px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.demoUserButton {
+  width: 100px;
+  height: 25px;
+  align-self: center;
+  background-color: gray;
+  color: white;
+}
+
+.nope {
+  color: rgb(198, 24, 24);
+  font-weight: bold;
+}

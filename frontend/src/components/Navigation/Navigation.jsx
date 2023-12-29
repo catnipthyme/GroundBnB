@@ -1,43 +1,31 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import { OpenModalButton } from '../OpenModalButton';
-import { LoginFormModal } from '../LoginFormModal'
-import { SignupFormModal } from '../SignupFormModal';
+import { ProfileButton } from './index';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
-  const sessionLinks = sessionUser ? (
-    <li>
-      <ProfileButton user={sessionUser} />
-    </li>
-  ) : (
-    <>
-      <li>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-      </li>
-      <li>
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
-      </li>
-    </>
-  );
-
-
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
+    <>
+    <ul className="navBar">
+      <h1>
+        <NavLink exact to="/">
+          <p style={{color: "#e26f22"}}>
+            <i className="fa-brands fa-airbnb fa-xl" style={{color: "#e26f22"}} />
+            groundbnb
+          </p>
+        </NavLink>
+      </h1>
+      <p id="createASpotLink">{sessionUser && (<NavLink to='/spots/new'>Create a New Spot</NavLink>)}</p>
+      {isLoaded && (
+      <div>
+          <ProfileButton user={sessionUser} />
+      </div>
+      )}
     </ul>
+    <section id='bar' />
+    </>
   );
 }
 

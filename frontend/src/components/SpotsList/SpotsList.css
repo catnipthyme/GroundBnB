@@ -1,0 +1,33 @@
+.allSpotsDisplay {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 400px) {
+  .allSpotsDisplay {
+    display: grid;
+    grid-template-columns: 1fr
+  }
+}
+
+@media screen and (min-width: 401px) {
+  .allSpotsDisplay {
+    display: grid;
+    grid-template-columns: 1fr 1fr
+  }
+}
+
+@media screen and (min-width: 861px) {
+  .allSpotsDisplay {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
+  }
+}
+
+@media screen and (min-width: 1101px) {
+  .allSpotsDisplay {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr
+  }
+}
