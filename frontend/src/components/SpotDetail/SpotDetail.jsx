@@ -14,9 +14,9 @@ const SpotDetail = () => {
   // const reviews = useSelector(state => state.reviews)
   // console.log('review list time: ', reviews)
   const spot = useSelector(state => state.spots)
-  console.log("spot results: ", spot)
+  // console.log("spot results: ", spot)
   // const owner = useSelector(state => spot.Owner)
-  console.log('spot owner data maybe: ', spot.Owner)
+  // console.log('spot owner data maybe: ', spot.Owner)
   // const [isLoaded, setIsLoaded] = useState(false);
   // const [owner, setOwner] = useState('')
   const numReviews = spot.numReviews
