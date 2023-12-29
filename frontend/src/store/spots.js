@@ -2,8 +2,8 @@ import { csrfFetch } from "./csrf"
 
 // action type constants
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS'
-
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT'
+export const CREATE_SPOT = 'spots/CREATE_SPOT'
 
 // action creators
 export const loadSpots = (spots) => ({
@@ -13,6 +13,11 @@ export const loadSpots = (spots) => ({
 
 export const receiveSpot = (spot) => ({
   type: RECEIVE_SPOT,
+  spot
+});
+
+export const createSpot = (spot) => ({
+  type: CREATE_SPOT,
   spot
 });
 
@@ -41,9 +46,19 @@ export const thunkReceiveSpot = (spotId) => async (dispatch) => {
     dispatch(receiveSpot(data))
     // console.log("data time: ", data)
     return data
-  } 
-
+  }
 }
+
+export const thunkCreateSpot = (spot) => async(dispatch) => {
+  const res = await csrfFetch(`/api/spots`, {
+    method: 'POST',
+    body: JSON.stringify({...spot})
+  })
+  const newSpot = await res.json()
+  dispatch(createSpot(data))
+  return data
+}
+
 
 
 // selectors
