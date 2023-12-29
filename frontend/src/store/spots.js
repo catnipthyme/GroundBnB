@@ -54,7 +54,7 @@ export const thunkCreateSpot = (spot) => async(dispatch) => {
     method: 'POST',
     body: JSON.stringify({...spot})
   })
-  const newSpot = await res.json()
+  const data = await res.json()
   dispatch(createSpot(data))
   return data
 }

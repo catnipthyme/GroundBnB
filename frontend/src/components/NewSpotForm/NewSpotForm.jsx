@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
 import './NewSpotForm.css'
 
 const NewSpotForm = () => {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [country, setCountry] = useState("")
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
@@ -19,7 +19,7 @@ const NewSpotForm = () => {
   const [image3, setImage3] = useState("")
   const [image4, setImage4] = useState("")
 
-  const [errors, setErrors] = useState({})
+  // const [errors, setErrors] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const NewSpotForm = () => {
       <div className='location'>
         <div className='formHeader'>
           <h1>Create a New Spot</h1>
-          <h2>Where's your place located?</h2>
+          <h2>Where&apos;s your place located?</h2>
           <p>Guests will only get your exact address once they booked a reservation.</p>
         </div>
         <div className='locationInputs'>
@@ -96,7 +96,7 @@ const NewSpotForm = () => {
       <div className='title'>
         <div className='formHeader'>
           <h2>Create a title for your spot</h2>
-          <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
+          <p>Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
           <input
             type='text'
             placeholder='Name of your spot'

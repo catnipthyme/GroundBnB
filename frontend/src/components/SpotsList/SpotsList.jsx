@@ -23,7 +23,6 @@ const SpotsList = () => {
           />
         ))}
       </ul>
-        <h1>Hello Spots</h1>
     </div>
   )
 }

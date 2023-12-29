@@ -1,10 +1,10 @@
-import { useDispatch } from "react-redux"
+// import { useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
 import './SpotItem.css'
 
 
 const SpotItem = ({ spot }) => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const ratingScore = spot.avgRating
 
   const roundedRatingScore = (ratingScore) => {
@@ -14,8 +14,6 @@ const SpotItem = ({ spot }) => {
     return Number.parseFloat(ratingScore).toFixed(2)
     }
   }
-
-
 
 
   return (

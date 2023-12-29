@@ -1,5 +1,5 @@
 import{ useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';        // useState maybe?
 import { useDispatch, useSelector } from 'react-redux'
 import { thunkReceiveSpot } from '../../store/spots';
 import './SpotDetail.css'
@@ -9,7 +9,7 @@ const SpotDetail = () => {
   const dispatch = useDispatch()
   const { spotId } = useParams()
   // console.log(spotId)
-  const session = useSelector(state => state.session)
+  // const session = useSelector(state => state.session)
   // console.log(session)
   // const reviews = useSelector(state => state.reviews)
   // console.log('review list time: ', reviews)
@@ -17,7 +17,7 @@ const SpotDetail = () => {
   console.log("spot results: ", spot)
   // const owner = useSelector(state => spot.Owner)
   console.log('spot owner data maybe: ', spot.Owner)
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
   // const [owner, setOwner] = useState('')
   const numReviews = spot.numReviews
   const ratingScore = spot.avgRating
