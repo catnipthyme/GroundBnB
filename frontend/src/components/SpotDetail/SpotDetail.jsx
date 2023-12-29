@@ -9,7 +9,7 @@ const SpotDetail = () => {
   const dispatch = useDispatch()
   const { spotId } = useParams()
   // console.log(spotId)
-  // const session = useSelector(state => state.session)
+  // const session = useSelector(state => state.session) 
   // console.log(session)
   // const reviews = useSelector(state => state.reviews)
   // console.log('review list time: ', reviews)
