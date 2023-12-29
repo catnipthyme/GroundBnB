@@ -100,7 +100,7 @@ module.exports = {
       {
         spotId: 8,
         userId: 12,
-        review: "Stayed here for four nights, and I was SHOCKED when I discovered they had double booked the spot. I kept hearing voices, rattling chains, and cool breezes from fans, but the other occupants were really sneaky and it was a little disturbing. Do not recommend staying ANYWHERE owned by this person. They are scammers and just want your money.",
+        review: "Stayed here for four nights, and I was SHOCKED when I discovered they had double booked the spot. I kept hearing voices felt cool breezes from fans, but the other occupants were really sneaky and it was a little disturbing.",
         stars: 1
       },
       {
